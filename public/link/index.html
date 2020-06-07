@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Six Degrees of Tim Berners-Lee</title>
+      <style>
+         #from, #to {
+            font-family: monospace;
+         }
+      </style>
+   </head>
+   <body>
+      Both <a id='from'></a> and <a id='to'></a> now appear on a hosted page :)
+      <script>
+         var params = new URLSearchParams(location.search);
+         function setupLink(name) {
+            var link = document.getElementById(name);
+            var param = params.get(name);
+            link.innerText = '@'+param;
+            link.href = 'https://twitter.com/'+param;
+         }
+
+         setupLink('from');
+         setupLink('to');
+      </script>
+   </body>
+</html>

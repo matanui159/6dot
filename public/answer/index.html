@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Six Degrees of Tim Berners-Lee</title>
+      <style>
+         #handle {
+            font-family: monospace;
+         }
+      </style>
+   </head>
+   <body>
+      <ol id='list'></ol>
+      <script>
+         function createLink(url, name, clazz) {
+            if (name === undefined) {
+               name = url;
+            }
+            if (clazz === undefined) {
+               clazz = '';
+            } else {
+               clazz = 'class="'+clazz+'"'
+            }
+            return '<a href="'+url+'" '+clazz+'>'+name+'</a>';
+         }
+
+         function createTwitterLink(handle) {
+            return createLink('https://twitter.com/'+handle, '@'+handle, 'handle');
+         }
+
+         function createListItem(from, to) {
+            return '<li>'+createTwitterLink(from)+' to '+createTwitterLink(to)+' via '
+               +createLink(location.protocol+'//'+location.host+'/link?from='+from+'&to='+to)+'</li>';
+         }
+
+         var params = new URLSearchParams(location.search);
+         var list = '';
+         list += createListItem(params.get('start'), 'jmint_fibonacci');
+         list += createListItem('jmint_fibonacci', 'mikumiku_ebooks');
+         list += createListItem('mikumiku_ebooks', 'lunasorcery');
+         list += createListItem('lunasorcery', 'avogado6');
+         list += createListItem('avogado6', 'timberners_lee');
+         document.getElementById('list').innerHTML = list;
+      </script>
+   </body>
+</html>
